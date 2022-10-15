@@ -3,26 +3,113 @@
 
 using namespace std;
 
+
 int main(void)
 {
+	// test_incrssize();
+
+	LinearList();
+
+	system("pause");
+	return 0;
+}
+
+void test_incrssize()
+{
+	int len = 2;
+	int* tmp = new int[len];
+	for (int i = 0; i < len; i++)
+		tmp[i] = i;
+	len++;
+	tmp = IncreaseSize(tmp, 1);
+	for (int i = 0; i < len; i++)
+	{
+		cout << tmp[i] << " ";
+	}
+	cout << endl;
+}
+int ListLength(int* l)
+{
+	/*返回外部列表长度*/
+	//int len = (_msize(l) / sizeof(int));
+	int msize = _msize(l);
+	//printf("size of _msize = %d\n", msize);
+	int sizeofint = sizeof(int);
+	//printf("int size = %d\n", sizeofint);
+	int len = msize / sizeofint;
+	//printf("len = %d\n", len);
+	return len;
+}
+int* IncreaseSize(int* l, int len)
+{
+	/*
+		此函数用于增加动态列表长度
+		输入：
+			l为需要增加长度的列表
+			len为增加的长度
+		返回：
+			增加成功与否true or false
+	*/
+	if (l == NULL)
+	{
+		return NULL;
+	}
+	int* p = l;
+	int originlen = ListLength(l);
+	l = new int[originlen + len];
+	for (int i = 0; i < originlen; i++)
+	{
+		l[i] = p[i];
+	}
+	delete p;
+	return l;
+}
+
+
+void LinearList()
+{
 	ADT_list L(2);
-	int *s = L.InitList(false);
-	s = L.Set_1(10, s);
+	int* s = L.InitList(false);
+	s = L.Set_i(5, s);
 	//cout << "length = " << L.ListLength(s) << endl;
 	//cout << "index 2 List Elem is " << L.GetElem(2,s) << endl;
 	//s[5] = 10;
-	cout << "5 in s is : " << L.LocateElem(10, s) << endl;
+	cout << "s的长度为：" << L.ListLength(s) << endl << "s = ";
+	for (int i = 0; i < L.ListLength(s); i++)
+	{
+		cout << s[i] << "   ";
+	}
+	cout << endl << "5 in s is : " << L.LocateElem(10, s) << endl;
+	s[0] = s[3] = 3;
+	cout << "修改后的s = ";
+	for (int i = 0; i < L.ListLength(s); i++)
+	{
+		cout << s[i] << "   ";
+	}
+	cout << endl;
+	int* priorls = L.PriorElem(3, s);
+	if (priorls != NULL)
+	{
+		for (int i = 1; i < priorls[0]; i++)
+		{
+			cout << endl << "prior[" << i << "] = " << priorls[i] << "\n" << endl;
+		}
+		delete priorls;
+		priorls = NULL;
+	}
+
 	delete[] s;
+	s = NULL;
 
 	cout << "====================对象属性内容=================" << endl;
 
 
 	L.InitList(true);
-	L.Set_1(10);
+	L.List = L.Set_seq(10);
 	//cout << "index 2 List Elem is " << L.GetElem(2) << endl;
 	//cout << "before-Clear L.List = " << L.List[0] << " " << L.List[1] << endl;
 	//cout << "length = " << L.ListLength() << endl;
-	
+
 	//cout << "*s = " << s[0] << endl;
 	//int* l = new int[2];
 	//l[0] = 0;
@@ -35,11 +122,73 @@ int main(void)
 	//cout << "l是否为空？" << L.ListEmpty(l) << endl;
 	///*clear test*/
 	//cout << "after-Clear l = " << l[0] << " " << l[1] << endl;
+	for (int i = 0; i < L.Length; i++)
+	{
+		cout << L.List[i] << " ";
+	}
+	cout << endl;
+	L.List[9] = 0;
+	cout << "the prior element of that is:\n";
+	int* priorl = L.PriorElem(0);
 
+	if (priorl != NULL)
+	{
+		cout << "一共找到了" << priorl[0] - 1 << "个符合条件的元素" << endl;
+		for (int i = 1; i < priorl[0]; i++)
+		{
+			cout << "prior[" << i << "] = " << priorl[i] << "\n" << endl;
+		}
+		delete priorl;
+		priorl = NULL;
+	}
 
+	int* nextl = L.NextElem(0);
 
+	if (nextl != NULL)
+	{
+		cout << "一共找到了" << nextl[0] - 1 << "个符合条件的元素" << endl;
+		for (int i = 1; i < nextl[0]; i++)
+		{
+			cout << "next[" << i << "] = " << nextl[i] << "\n" << endl;
+		}
+		delete nextl;
+		nextl = NULL;
+	}
 
+	cout << "====================插入测试==================" << endl;
+	cout << "原列表现在为" << endl;
+	L.ShowList();
+	int e = 9;
+	int insertidx = 10;
+	cout << "现在在第" << insertidx << "个元素前插入一个数字" << e << endl;
+	if (L.ListInsert(insertidx, e))
+	{
+		cout << "在第" << insertidx << "个元素前插入" << e << "成功， 新的顺序表如下：" << endl;
+		L.ShowList();
+	}
+	cout << endl;
 
-	system("pause");
-	return 0;
+	cout << "====================外部列表插入测试==================" << endl;
+	cout << "原列表现在为" << endl;
+
+	s = L.Set_i(5, s);
+	L.ShowList(s);
+	e = 10;
+	insertidx = 7;
+	cout << "现在在第" << insertidx << "个元素前插入一个数字" << e << endl;
+	s = L.ListInsert(insertidx, e, s);
+	if(insertidx != -1)
+	{
+		cout << "在第" << insertidx << "个元素前插入" << e << "成功， 新的顺序表如下：" << endl;
+		L.ShowList(s);
+	}
+	else
+	{
+		cout << "操作失败，线性表不存在, 或者插入位置错误" << endl;
+	}
+	cout << endl;
+	delete[]s;
 }
+
+
+
