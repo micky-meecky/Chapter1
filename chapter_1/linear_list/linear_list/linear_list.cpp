@@ -67,6 +67,24 @@ int* ADT_list::Set_seq(int i)
 	}
 	return tmp;
 }
+int* ADT_list::Set_seq(int i, int* l)
+{
+	/*重新开辟空间，防止越界*/
+	if (l != NULL)
+	{
+		delete[] l;
+		l = NULL;
+	}
+	
+	delete[]l;
+	int* tmp = new int[i];
+
+	for (int j = 0; j < i; j++)
+	{
+		tmp[j] = j;
+	}
+	return tmp;
+}
 
 int* ADT_list::Set_i(int i, int *l)
 {
@@ -529,7 +547,6 @@ int* ADT_list::ListInsert(int &idx, int& e, int* l)
 	len++;
 	return l;
 }
-
 bool ADT_list::IncreaseSize(int* l, int len)
 {
 	/*
@@ -555,16 +572,84 @@ bool ADT_list::IncreaseSize(int* l, int len)
 	return true;
 }
 
+bool ADT_list::ListDelete(int idx, int& e)
+{
+	if (this->List == NULL)
+	{
+		cout << "操作失败，线性表不存在" << endl;
+		return false;
+	}
+	if (idx <= 0 || idx > this->Length)
+	{
+		cout << "操作失败，删除元素不存在" << endl;
+		return false;
+	}
+	//新建一个动态列表, 长度减一
+	int* NewList = new int[this->Length - 1];
+	//将那个位置上的元素赋值给e
+	e = this->List[idx - 1];
+	//将删除位置以后的元素复制到新列表
+	for (int j = 0; j < this->Length; j++)
+	{	
+		//将它后面的元素依次往前提一位
+		if (j < idx - 1)
+		{
+			NewList[j] = this->List[j];
+		}
+		else
+		{
+			NewList[j] = this->List[j + 1];
+		}
+	}
+	delete[]this->List;
+	this->List = NewList;
+	this->Length--;
+	return true;
+}
+
+int* ADT_list::ListDelete(int &idx, int& e, int* l)
+{
+	if (this->List == NULL)
+	{
+		idx = -1;
+	}
+	int len = this->ListLength(l);
+	if (idx <= 0 || idx > len)
+	{
+		idx = -1;
+	}
+	//新建一个动态列表, 长度减一
+	int* NewList = new int[len - 1];
+	//将那个位置上的元素赋值给e
+	e = l[idx - 1];
+	//将删除位置以后的元素复制到新列表
+	for (int j = 0; j < len; j++)
+	{
+		//将它后面的元素依次往前提一位
+		if (j < idx - 1)
+		{
+			NewList[j] = l[j];
+		}
+		else
+		{
+			NewList[j] = l[j + 1];
+		}
+	}
+	delete[]l;
+	l = NewList;
+	len--;
+	return l;
+}
 
 
 
 
 
 
+int visit()
+{
 
-
-
-
+}
 
 
 

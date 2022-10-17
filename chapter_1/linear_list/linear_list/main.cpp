@@ -188,6 +188,40 @@ void LinearList()
 	}
 	cout << endl;
 	delete[]s;
+
+	cout << "===================列表删除测试==================" << endl;
+	cout << "原列表现在为" << endl;
+	L.ShowList();
+	int delete_e = 9;
+	int delete_idx = 1;
+	if (L.ListDelete(delete_idx, delete_e))
+	{
+		cout << "现在, 第" << delete_idx << "个元素" << delete_e << "将被删除" << endl;
+		cout << "将第" << delete_idx << "个元素"<< delete_e << "删除成功， 新的顺序表如下：" << endl;
+		L.ShowList();
+	}
+	cout << endl;
+
+	cout << "===================外部列表删除测试==================" << endl;
+	cout << "原列表现在为" << endl;
+	int *delete_s = L.InitList(false);
+	delete_s = L.Set_seq(20, delete_s);
+	L.ShowList(delete_s);
+	int delete_s_e = 9;
+	int delete_s_idx = 10;
+	delete_s = L.ListDelete(delete_s_idx, delete_s_e, delete_s);
+	if(delete_s_idx != -1)
+	{
+		cout << "现在, 第" << delete_s_idx << "个元素" << delete_s_e << "将被删除" << endl;
+		cout << "将第" << delete_s_idx << "个元素" << delete_s_e << "删除成功， 新的顺序表如下：" << endl;
+		L.ShowList(delete_s);
+	}
+	else
+	{
+		cout << "操作失败，线性表不存在, 或者删除位置错误" << endl;
+	}
+	cout << endl;
+
 }
 
 

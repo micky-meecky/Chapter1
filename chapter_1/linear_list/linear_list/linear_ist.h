@@ -17,12 +17,13 @@ public:
 		内部表初始化，i为需要设置的表的长度，以及将表按从0到i的顺序填充
 	*/
 	int* Set_seq(int i);
+	int* Set_seq(int i, int* l);
 	/*
 		外部表初始化，i为需要设置的外部的表的长度，以及将表按从0到i的顺序填充
 	*/
 	int* Set_i(int i, int *l);
 
-	bool ShowList();
+	bool ShowList();// 也就是书上的traverse, visit函数
 	bool ShowList(int* l);
 
 	void DestroyList(int* s);
@@ -52,6 +53,8 @@ public:
 	bool ListInsert(int idx, int& e);
 	int* ListInsert(int &idx, int& e, int* l);
 	
+	bool ListDelete(int idx, int& e);
+	int* ListDelete(int& idx, int& e, int* l);
 
 	//辅助函数
 	bool IncreaseSize(int* l, int len);
