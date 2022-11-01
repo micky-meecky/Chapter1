@@ -2,10 +2,12 @@
 #ifndef linear_list_H
 #define linear_list_H
 #include <iostream>
+#include <string>
+
 
 class ADT_list {
 public:
-	ADT_list(int size = 0);
+	ADT_list(int size = 0);//默认是一个长度为0的空表
 	ADT_list(const ADT_list& L);
 	~ADT_list();
 	
@@ -74,7 +76,7 @@ class Timu
 {
 public:
 	void Exp2_1Union(ADT_list &La, ADT_list Lb);
-
+	bool Exp2_2Merge(ADT_list& La, ADT_list &Lb, ADT_list &Lc, std::string Order = "ascending");
 };
 
 void test_incrssize();
@@ -84,5 +86,6 @@ int ListLength(int* l);
 
 void timu();
 void timu_Exp2_1Union();
+void timu_Exp2_2Merge();
 
 #endif

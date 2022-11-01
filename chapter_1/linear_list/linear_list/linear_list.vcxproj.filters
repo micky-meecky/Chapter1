@@ -24,6 +24,9 @@
     <ClCompile Include="Timu.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="TimuTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="linear_ist.h">

@@ -142,6 +142,7 @@
     <ClCompile Include="linear_list.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Timu.cpp" />
+    <ClCompile Include="TimuTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="linear_ist.h" />

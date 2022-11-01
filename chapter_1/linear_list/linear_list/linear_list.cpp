@@ -510,6 +510,7 @@ int* ADT_list::NextElem(int cur_e, int* l)
 
 bool ADT_list::ListInsert(int idx, int& e)
 {
+	//在序号idx前插入e，返回成功与否
 	if (this->List == NULL)
 	{
 		cout << "操作失败，线性表不存在" << endl;
