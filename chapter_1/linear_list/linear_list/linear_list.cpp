@@ -10,6 +10,19 @@ ADT_list::ADT_list(int size)
 	this->List = new int[this->Size];
 	this->Length = this->Size;
 }
+ADT_list::ADT_list(const ADT_list& L)
+{
+	/*执行深拷贝*/
+	this->Length = L.Length;
+	this->List = new int[L.Length];
+	this->Size = L.Size;
+
+	for (int i = 0; i < this->Length; i++)
+	{
+		this->List[i] = L.List[i];
+	}
+}
+
 ADT_list::~ADT_list()
 {
 	//析构函数，释放内存，长度变为一
@@ -98,6 +111,31 @@ int* ADT_list::Set_i(int i, int *l)
 		l = NULL;
 	}
 
+	int* tmp = new int[i];
+	/*
+		这里不能直接将l进行重新开辟空间，因为上面delete后，l = NUll，
+		这里进行对l的重新分配的话，待试验
+	*/
+
+	for (int j = 0; j < i; j++)
+	{
+		tmp[j] = i;
+	}
+	return tmp;
+}
+
+int* ADT_list::Set_i(int i)
+{
+	/*
+		这里的参数i 是指指定设置的数组的内容与长度；
+	*/
+	/*重新开辟空间，防止越界*/
+	if (this->List != NULL)
+	{
+		delete[] this->List;
+		this->List = NULL;
+	}
+	this->Length = i;
 	int* tmp = new int[i];
 	/*
 		这里不能直接将l进行重新开辟空间，因为上面delete后，l = NUll，
@@ -252,7 +290,7 @@ int ADT_list::LocateElem(int e)
 	/*
 		return (-1,0,j) 表示-1：列表为空；
 		0：没找到；
-		j：符合条件的列表元素的位序;
+		j：符合条件的列表元素的位序(从1开始);
 	*/
 	if (this->List == NULL)
 		return -1;
@@ -260,7 +298,7 @@ int ADT_list::LocateElem(int e)
 	{
 		if (this->List[j] == e)
 		{
-			return j;
+			return j + 1;
 		}
 	}
 	return 0;
@@ -646,10 +684,6 @@ int* ADT_list::ListDelete(int &idx, int& e, int* l)
 
 
 
-int visit()
-{
-
-}
 
 
 

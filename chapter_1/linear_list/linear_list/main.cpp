@@ -1,6 +1,7 @@
 #include <iostream>
 #include "linear_ist.h"
 
+
 using namespace std;
 
 
@@ -8,7 +9,9 @@ int main(void)
 {
 	// test_incrssize();
 
-	LinearList();
+	//LinearList();
+
+	timu();
 
 	system("pause");
 	return 0;
@@ -224,5 +227,29 @@ void LinearList()
 
 }
 
+//书上的题目
+void timu()
+{
+	timu_Exp2_1Union();
 
+}
+
+void timu_Exp2_1Union()
+{
+	ADT_list La, Lb;
+	Timu Process;
+	La.List = La.InitList(true);
+	Lb.List = Lb.InitList(true);
+	La.List = La.Set_seq(20);
+	Lb.List = Lb.Set_seq(30);
+	// 处理前遍历显示一下
+	cout << "合并处理前：" << endl;
+	La.ShowList();
+	Lb.ShowList();
+	// 处理
+	Process.Exp2_1Union(La, Lb);
+	cout << "合并处理后：" << endl;
+	La.ShowList();
+	int a = 0;
+}
 

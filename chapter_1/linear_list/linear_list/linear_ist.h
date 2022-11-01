@@ -6,22 +6,27 @@
 class ADT_list {
 public:
 	ADT_list(int size = 0);
+	ADT_list(const ADT_list& L);
 	~ADT_list();
 	
 	//基本操作
 	/*
 		初始化长度为1的空表
 	*/
-	int *InitList(bool flag);//flag为真，设置内部列表，反之生成一个外部列表并返回
+	//flag为真，设置内部列表，反之生成一个外部列表并返回
+	int *InitList(bool flag);
 	/*
-		内部表初始化，i为需要设置的表的长度，以及将表按从0到i的顺序填充
+		内部表初始化，i为需要设置的表的长度
+		，以及将表按从0到i的顺序填充
 	*/
 	int* Set_seq(int i);
 	int* Set_seq(int i, int* l);
 	/*
-		外部表初始化，i为需要设置的外部的表的长度，以及将表按从0到i的顺序填充
+		外部表初始化，i为需要设置的外部的表的长度
+		，以及将表按从0到i的顺序填充
 	*/
 	int* Set_i(int i, int *l);
+	int* Set_i(int i);
 
 	bool ShowList();// 也就是书上的traverse, visit函数
 	bool ShowList(int* l);
@@ -65,9 +70,19 @@ public:
 	int Length;
 };
 
+class Timu
+{
+public:
+	void Exp2_1Union(ADT_list &La, ADT_list Lb);
+
+};
+
 void test_incrssize();
 void LinearList();
 int* IncreaseSize(int* l, int len);
 int ListLength(int* l);
+
+void timu();
+void timu_Exp2_1Union();
 
 #endif
