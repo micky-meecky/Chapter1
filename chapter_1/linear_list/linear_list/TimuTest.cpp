@@ -31,21 +31,23 @@ void timu_Exp2_2Merge()
 	Timu Process;
 	La.List = La.InitList(true);
 	Lb.List = Lb.InitList(true);
-	La.List = La.Set_seq(2);
-	Lb.List = Lb.Set_seq(2);
+	La.List = La.Set_seq(10);
+	int tmp = 5;
+	La.ListInsert(10, tmp);
+	Lb.List = Lb.Set_seq(8);
 	// 处理前遍历显示一下
 	cout << "合并处理前：" << endl;
 	La.ShowList();
 	Lb.ShowList();
 	//Lb.DestroyList();
 	// 处理
-	if (Process.Exp2_2Merge(La, Lb, Lc, "123"))
+	if (Process.Exp2_2Merge(La, Lb, Lc, "descending"))
 	{
 		cout << "合并处理后：" << endl;
 		Lc.ShowList();
 	}
 	else
 	{
-		cout << "操作失败，线性表不存在" << endl;
+		cout << "操作失败，线性表不存在 或者没有该order" << endl;
 	}
 }

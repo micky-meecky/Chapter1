@@ -9,6 +9,7 @@ ADT_list::ADT_list(int size)
 	this->Size = size;
 	this->List = new int[this->Size];
 	this->Length = this->Size;
+	this->Order = "ascending";
 }
 ADT_list::ADT_list(const ADT_list& L)
 {
@@ -16,6 +17,7 @@ ADT_list::ADT_list(const ADT_list& L)
 	this->Length = L.Length;
 	this->List = new int[L.Length];
 	this->Size = L.Size;
+	this->Order = L.Order;
 
 	for (int i = 0; i < this->Length; i++)
 	{
@@ -72,6 +74,7 @@ int* ADT_list::Set_seq(int i)
 	}
 
 	this->Length = i;
+	this->Order = "ascending";
 	int* tmp = new int[this->Length];
 
 	for (int j = 0; j < i; j++)
@@ -136,6 +139,7 @@ int* ADT_list::Set_i(int i)
 		this->List = NULL;
 	}
 	this->Length = i;
+	this->Order = "ascending";
 	int* tmp = new int[i];
 	/*
 		这里不能直接将l进行重新开辟空间，因为上面delete后，l = NUll，
@@ -681,8 +685,147 @@ int* ADT_list::ListDelete(int &idx, int& e, int* l)
 }
 
 
+bool ADT_list::ListReverse(std::string Order)
+{
+	/*
+		将对象内部表顺序颠倒
+		1.检测该表的顺序；
+		2.如果不是乱序，则开始算法；
+		3.如果是乱序，则调用排序函数，后在执行算法；
+
+		算法复杂度为O(n)
+	*/
+	this->ListOrder();
+	int len = this->ListLength();
+	int* tmp = new int[len];
+	if (this->Order == "ascending" || this->Order == "descending")
+	{
+		for (int i = 0; i < len; i++)
+		{
+			tmp[i] = this->List[i];
+		}
+		for (int i = 0; i < len; i++)
+		{
+			this->List[i] = tmp[len - i - 1];
+		}
+		return true;
+	}
+	else
+	{
+		this->ListRearrange(Order);
+		return false;
+	}
 
 
+	return true;
+}
+
+std::string ADT_list::ListOrder()
+{
+	/*
+		检测表的顺序，升序包括相等的
+		算法复杂度为O(n)
+
+	*/
+	int len = this->Length;
+	int OrderFlag = 1; // 1: ascending
+	int j = 0;
+	if (len <= 1)
+	{
+		this->Order = "ascending";
+		return this->Order;
+	}
+	while (j < len - 1)
+	{
+		if (this->List[j] < this->List[j + 1])
+		{
+			OrderFlag = 1;
+			break;
+		}
+		else if (this->List[j] > this->List[j + 1])
+		{
+			OrderFlag = 0;
+			break;
+		}
+		else
+		{
+			j++;
+			continue;
+		}
+	}
+	if (j == len - 1)
+	{
+		return "ascending";
+	}
+
+	for (int i = j + 1; i < len - 1; i++)
+	{
+		if (OrderFlag)
+		{
+			if (this->List[i] <= this->List[i + 1])
+			{
+				OrderFlag = 1;
+				continue;
+			}
+			else
+			{
+				this->Order = "disorder";
+				return "disorder";
+			}
+		}
+		else
+		{
+			if (this->List[i] >= this->List[i + 1])
+			{
+				OrderFlag = 0;
+				continue;
+			}
+			else
+			{
+				return "disorder";
+			}
+		}
+	}
+	this->Order = OrderFlag == 1 ? "ascending" : "descending";
+	return this->Order;
+}
+
+bool ADT_list::ListRearrange(std::string Order)
+{
+
+	int len = this->Length;
+	if (Order == "ascending")
+	{
+		for (int i = 0; i < len; i++)
+		{
+			for (int j = 0; j < len - 1 - i; j++)
+			{
+				if (this->List[j] > this->List[j + 1])
+				{
+					int tmp = this->List[j];
+					this->List[j] = this->List[j + 1];
+					this->List[j + 1] = tmp;
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < len; i++)
+		{
+			for (int j = 0; j < len - 1 - i; j++)
+			{
+				if (this->List[j] < this->List[j + 1])
+				{
+					int tmp = this->List[j];
+					this->List[j] = this->List[j + 1];
+					this->List[j + 1] = tmp;
+				}
+			}
+		}
+	}
+	return true;
+}
 
 
 

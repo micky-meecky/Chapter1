@@ -225,6 +225,37 @@ void LinearList()
 	}
 	cout << endl;
 
+	cout << "===================Íâ²¿ÁÐ±íË³Ðò¼ì²â²âÊÔ==================" << endl;
+	cout << "ÉýÐò¼ì²â" << endl;
+	int tmp_e = 0;
+	L.ListDelete(10,tmp_e);
+	L.ShowList();
+	cout << L.ListOrder() << endl;
+
+	cout << "ËùÓÐÔªËØÏàµÈ¼ì²â" << endl;
+	L.List = L.Set_i(10);
+	L.ShowList();
+	cout << L.ListOrder() << endl;
+
+	cout << "½µÐò¼ì²â" << endl;
+	L.List = L.Set_i(3);
+	int a = 1;
+	L.ListInsert(4, a);
+	//a--;
+	//L.ListInsert(5, a);
+	L.ShowList();
+	cout << L.ListOrder() << endl;
+
+	cout << "ÂÒÐò¼ì²â" << endl;
+	a = a + 10;
+	L.ListInsert(5, a);
+	L.ShowList();
+	cout << L.ListOrder() << endl;
+
+	cout << "ÅÅÐò¼ì²â" << endl;
+	L.ListRearrange("descending");
+	L.ShowList();
+	cout << L.ListOrder() << endl;
 }
 
 //ÊéÉÏµÄÌâÄ¿

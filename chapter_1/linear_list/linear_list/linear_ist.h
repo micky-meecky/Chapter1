@@ -63,6 +63,13 @@ public:
 	bool ListDelete(int idx, int& e);
 	int* ListDelete(int& idx, int& e, int* l);
 
+	//指定
+	bool ListReverse(std::string Order);
+
+	std::string ListOrder(); //获取排序信息
+
+	bool ListRearrange(std::string Order); //冒泡排序
+
 	//辅助函数
 	bool IncreaseSize(int* l, int len);
 
@@ -70,6 +77,7 @@ public:
 	int Size;
 	int* List;
 	int Length;
+	std::string Order;
 };
 
 class Timu

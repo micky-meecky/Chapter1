@@ -27,12 +27,28 @@ bool Timu::Exp2_2Merge(ADT_list& La, ADT_list &Lb, ADT_list &Lc, std::string Ord
 {
 	/*
 		已知A和B都是升序排列，将A和B的元素按照指定顺序归并到C列表中
+		1.判断A,B的顺序
+		2.如要求的Order是升序，而A是降序，则首先将A顺序颠倒
+		3.再根据升降序要求进行merge
 	*/
 	if (La.List == NULL || Lb.List == NULL)
 	{
 		//cout << "操作失败，线性表不存在" << endl;
 		return false;
 	}
+	string La_order = La.ListOrder();
+	string Lb_order = Lb.ListOrder();
+	if (La_order != Order)
+	{
+		La.ListReverse(Order);
+	}
+	if (Lb_order != Order)
+	{
+		Lb.ListReverse(Order);
+	}
+
+
+	//merge
 	int i = 1, j = 1;
 	int k = 0;
 	int La_len, Lb_len;
@@ -57,7 +73,7 @@ bool Timu::Exp2_2Merge(ADT_list& La, ADT_list &Lb, ADT_list &Lc, std::string Ord
 				++j;
 			}
 		}
-		else
+		else if (Order == "descending")
 		{
 			if (La_elm <= Lb_elm)
 			{
@@ -69,6 +85,11 @@ bool Timu::Exp2_2Merge(ADT_list& La, ADT_list &Lb, ADT_list &Lc, std::string Ord
 				Lc.ListInsert(++k, La_elm);
 				++i;
 			}
+		}
+		else
+		{
+			cout << "There's no the order" << endl;
+			return false;
 		}
 	}
 	while (i <= La_len)
@@ -107,3 +128,5 @@ bool Timu::Exp2_2Merge(ADT_list& La, ADT_list &Lb, ADT_list &Lc, std::string Ord
 
 	*/
 }
+
+
